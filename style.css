@@ -12,14 +12,21 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #443ca3;
+    background: #7b5fc9;
+    transition: all 2s ease;
+}
+
+.exchange-rate {
+    display: flex;
+    justify-content: center;
 }
 
 .wrapper {
-    width: 370px;
+    width: 380px;
     padding: 30px;
     background: #fff;
-    border-radius: 9px;
+    border-radius: 18px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 
 .wrapper header {
@@ -30,6 +37,15 @@ body {
 
 .wrapper form {
     margin: 40px 0 20px 0;
+}
+
+body .icon-color {
+    display: flex;
+    justify-content: start;
+    font-size: 22px;
+    margin-right: 50px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 form :where(input, select, button) {
@@ -52,7 +68,7 @@ form input {
 }
 
 form input:focus {
-    border: 2px solid #443ca3;
+    border: 2px solid #333;
 }
 
 form .drop-list {
@@ -112,5 +128,7 @@ form button {
     color: #fff;
     font-size: 17px;
     cursor: pointer;
-    background: #443ca3;
+    border-radius: 10px;
+    background: #7b5fc9;
+    transition: all 2s ease;
 }

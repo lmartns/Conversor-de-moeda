@@ -4,7 +4,7 @@ const dropList = document.querySelectorAll(".drop-list select");
   (getButton = document.querySelector("form button"));
 
 for (let i = 0; i < dropList.length; i++) {
-  for (currency_code in country_list) {
+  for (currency_code in country_code) {
     let selected;
     if (i == 0) {
       selected = currency_code == "USD" ? "selected" : "";
@@ -14,6 +14,18 @@ for (let i = 0; i < dropList.length; i++) {
     let optionTag = `<option value="${currency_code}"${selected}>${currency_code}</option>`;
     dropList[i].insertAdjacentHTML("beforeend", optionTag);
   }
+  dropList[i].addEventListener("change", (e) => {
+    loadFlag(e.target);
+  });
+}
+
+function loadFlag(element) {
+  for (code in country_code) {
+    if (code == element.value) {
+      let imgTag = element.parentElement.querySelector("img");
+      imgTag.src = `https://countryflagsapi.com/png/${country_code[code]}`;
+    }
+  }
 }
 
 window.addEventListener("load", () => {
@@ -22,6 +34,16 @@ window.addEventListener("load", () => {
 
 getButton.addEventListener("click", (e) => {
   e.preventDefault();
+  getExchangeRate();
+});
+
+const exchangeIcon = document.querySelector(".drop-list .icon");
+exchangeIcon.addEventListener("click", () => {
+  let tempCode = fromCurrency.value;
+  fromCurrency.value = toCurrency.value;
+  toCurrency.value = tempCode;
+  loadFlag(fromCurrency);
+  loadFlag(toCurrency);
   getExchangeRate();
 });
 
@@ -42,5 +64,8 @@ function getExchangeRate() {
       let exchangerate = result.conversion_rates[toCurrency.value];
       let totaExchangeRate = (amountVal * exchangerate).toFixed(2);
       exchangeRateTxt.innerText = `${amountVal} ${fromCurrency.value} = ${totaExchangeRate} ${toCurrency.value}`;
+    })
+    .catch(() => {
+      exchangeRateTxt.innerText = "Something went wrong";
     });
 }
